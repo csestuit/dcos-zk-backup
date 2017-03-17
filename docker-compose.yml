@@ -2,7 +2,7 @@
 version: "2"
 services:
   backup:
-    image: minyk/dcos-zk-backup:build
+    image: minyk/dcos-zk-backup:alpine
     build:
       context: .
     environment:

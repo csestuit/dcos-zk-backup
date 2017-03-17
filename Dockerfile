@@ -1,4 +1,8 @@
-FROM openjdk:8
+FROM openjdk:8-jre-alpine
+
+# Install basic utils
+RUN apk update && apk add ca-certificates && update-ca-certificates && apk add openssl
+RUN apk update && apk add wget
 
 # Install mc
 WORKDIR /root
@@ -11,7 +15,7 @@ ENV MINIO_BUCKET_NAME dcos-backup
 # Install guano: https://github.com/feldoh/guano
 ENV GUANO_VERSION=0.1a
 WORKDIR /root
-RUN mkdir -p /root/guano && cd /root/guano && wget -O guano-0.1a.jar https://bintray.com/feldoh/Guano/download_file?file_path=jar%2Fguano-${GUANO_VERSION}.jar && ln -sf guano-${GUANO_VERSION}.jar guano.jar
+RUN mkdir -p /root/guano && cd /root/guano && wget --no-check-certificate -O guano-0.1a.jar https://dl.bintray.com/feldoh/Guano/jar/guano-${GUANO_VERSION}.jar && ln -sf guano-${GUANO_VERSION}.jar guano.jar
 
 # Target Zookeeper
 ENV ZOOKEEPER_URL localhost:2181
