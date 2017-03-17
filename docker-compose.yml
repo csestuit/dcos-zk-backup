@@ -1,0 +1,15 @@
+---
+version: "2"
+services:
+  backup:
+    image: minyk/dcos-zk-backup:build
+    build:
+      context: .
+    environment:
+      MINIO_ENDPOINT: http://play.minio.io:9000
+      MINIO_ACCESS_KEY: KEY
+      MINIO_SECRET_KEY: KEY
+      MINIO_BUCKET_NAME: dcos-backup
+      ZOOKEEPER_URL: leader.mesos:2181
+      ZOOKEEPER_ZNODE: /
+      TMP_DIR: /tmp/dcos

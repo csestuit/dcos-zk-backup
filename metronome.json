@@ -1,0 +1,41 @@
+{
+  "id": "dcos-zk-backup",
+  "description": "Backup zookeeper to Minio",
+  "labels": {},
+  "run": {
+    "cpus": 0.01,
+    "mem": 128,
+    "disk": 0,
+    "env": {
+      "ZOOKEEPER_ZNODE": "/",
+      "MINIO_ACCESS_KEY": "",
+      "MINIO_SECRET_KEY": "",
+      "MINIO_ENDPOINT": "http://minio.marathon.mesos:9090",
+      "ZOOKEEPER_URL": "leader.mesos:2181",
+      "TMP_DIR": "/tmp/dcos",
+      "MINIO_BUCKET_NAME": "dcos-backup"
+    },
+    "placement": {
+      "constraints": []
+    },
+    "artifacts": [],
+    "maxLaunchDelay": 3600,
+    "docker": {
+      "image": "minyk/dcos-zk-backup:build"
+    },
+    "volumes": [],
+    "restart": {
+      "policy": "NEVER"
+    }
+  },
+  "schedules": [
+    {
+      "id": "default",
+      "enabled": true,
+      "cron": "0 0 * * *",
+      "timezone": "Asia/Seoul",
+      "concurrencyPolicy": "ALLOW",
+      "startingDeadlineSeconds": 900
+    }
+  ]
+}
